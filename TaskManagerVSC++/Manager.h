@@ -25,6 +25,10 @@ public:
 
 	ReturnCommand showTask();
 
+	ReturnCommand createNewUser();
+
+	void clean();
+
 	~Manager();
 
 protected:
@@ -36,8 +40,6 @@ private:
 	string hashCodeUserPassword_;
 
 	string getHashCode(string);
-
-	bool createNewUser();
 
 	bool verifyUser();
 

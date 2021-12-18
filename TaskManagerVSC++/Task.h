@@ -38,13 +38,15 @@ public:
 
     void Display();
 
+    void clean();
+
     ReturnCommand loadStack(fstream*);
 
 protected:
 
 private:
 
-    stack<string>* tasks_;
+    stack<string>* tasks_ = nullptr;
 
     stack<string> *Reverse(stack<string>*);
 

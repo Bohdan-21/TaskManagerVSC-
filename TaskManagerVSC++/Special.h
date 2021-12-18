@@ -9,5 +9,6 @@ enum class ReturnCommand : short {
     SAVED,
     READED,
     ACCEPT,
+    CREATED,
 };
 

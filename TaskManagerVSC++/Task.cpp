@@ -166,7 +166,7 @@ ReturnCommand Task::saveStack(fstream* write)
 
 ReturnCommand Task::loadStack(fstream* read)
 {
-    string buff;
+    string buff = "";
     tasks_ = new stack<string>();
 
     try
@@ -174,7 +174,12 @@ ReturnCommand Task::loadStack(fstream* read)
         while (*read)
         {
             *read >> buff;
-            tasks_->push(buff);
+
+            if (buff != "")
+            {
+                tasks_->push(buff);
+                buff = "";
+            }
         }
     }
     catch (...)
@@ -182,4 +187,14 @@ ReturnCommand Task::loadStack(fstream* read)
         return ReturnCommand::ERROR;
     }
     return ReturnCommand::READED;
+}
+
+void Task::clean()
+{
+    int size;
+
+    size = tasks_->size();
+
+    for (int i = 0; i < size; i++)
+        tasks_->pop();
 }

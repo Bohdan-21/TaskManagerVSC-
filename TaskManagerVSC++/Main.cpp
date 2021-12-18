@@ -62,7 +62,13 @@ void menu()
         {
         case 1:
         {
-            manager-
+            result = manager->createNewUser();
+
+            if (result == ReturnCommand::CREATED)
+                cout << "User create" << endl;
+            else
+                cout << "User cant create" << endl;
+
             break;
         }
         case 2:
@@ -70,9 +76,9 @@ void menu()
             result = manager->addTask();
             
             if (result == ReturnCommand::ADDED)
-                cout << "Your task added";
+                cout << "Your task added" << endl;
             else 
-                cout << "Your task cant added";
+                cout << "Your task cant added" << endl;
             break;
         }
         case 3:
@@ -80,9 +86,9 @@ void menu()
             result = manager->removeTask();
             
             if (result == ReturnCommand::REMOVE)
-                cout << "Your task remove";
+                cout << "Your task remove" << endl;
             else
-                cout << "Your task cant remove";
+                cout << "Your task cant remove" << endl;
             break;
         }
         case 4:
@@ -90,9 +96,9 @@ void menu()
             result = manager->showTask();
 
             if (result == ReturnCommand::ACCEPT)
-                cout << "Your do verifycatioun";
+                cout << "Your do verifycatioun" << endl;
             else
-                cout << "Your dont verifycation";
+                cout << "Your dont verifycation" << endl;
            break;
         }
         case 5:
@@ -100,15 +106,21 @@ void menu()
             result = manager->saveDate();
             
             if (result == ReturnCommand::SAVED)
-                cout << "Your file saved";
+                cout << "Your file saved" << endl;
             else
-                cout << "Your file not saved";
+                cout << "Your file not saved" << endl;
 
             break;
         }
         case 6:
         {
             result = manager->loadDate();
+
+            if (result == ReturnCommand::READED)
+                cout << "Your file is read" << endl;
+            else
+                cout << "Your file cant read" << endl;
+
 
             break;
 

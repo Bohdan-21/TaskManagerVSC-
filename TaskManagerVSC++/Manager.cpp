@@ -2,14 +2,7 @@
 
 Manager::Manager()
 {
-	bool registration;
-
-	registration = createNewUser();
-
-	if (!registration)
-		cout << "User not registration";
-	else 
-		tasks_ = new Task;
+	tasks_ = new Task();
 }
 
 string Manager::getHashCode(string key)
@@ -46,7 +39,7 @@ Manager::~Manager()
 		delete tasks_;
 }
 
-bool Manager::createNewUser()
+ReturnCommand Manager::createNewUser()
 {
 	string userName = "", password = "";
 
@@ -57,12 +50,12 @@ bool Manager::createNewUser()
 	getline(cin, password);
 
 	if(userName == "" || password == "")
-		return false;
+		return ReturnCommand::ERROR;
 
 	userName_ = userName;
 	hashCodeUserPassword_ = getHashCode(password);
 
-	return true;
+	return ReturnCommand::CREATED;
 }
 
 bool Manager::verifyUser()
@@ -163,6 +156,13 @@ ReturnCommand Manager::removeTask()
 
 ReturnCommand Manager::saveDate()
 {
+	bool verification;
+
+	verification = verifyUser();
+
+	if (!verification)
+		return ReturnCommand::ERROR;
+
 	fstream write;
 	string filename, password;
 	ReturnCommand result;
@@ -265,6 +265,7 @@ ReturnCommand Manager::loadDate()
 {
 	stack<string>* listFile;
 	string fileName;
+	ReturnCommand result;
 
 	listFile = getListFile();
 
@@ -274,13 +275,12 @@ ReturnCommand Manager::loadDate()
 
 	fileName = selectFile(listFile);
 
-	load(fileName);
-
+	result = load(fileName);
 
 
 	delete listFile;
 
-	return ReturnCommand::ERROR;
+	return result;
 }
 
 string Manager::selectFile(stack<string>* listFile)
@@ -309,8 +309,8 @@ ReturnCommand Manager::load(string fileName)
 		return ReturnCommand::ERROR;
 	
 	fstream read;
-	string user, hashPass;
 	ReturnCommand result;
+	bool verification;
 
 	read.open(fileName, ios::in);
 
@@ -319,12 +319,8 @@ ReturnCommand Manager::load(string fileName)
 
 	try
 	{
-		read >> user;
-		read >> hashPass;
-
-		this->userName_ = user;
-		this->hashCodeUserPassword_ = hashPass;
-
+		read >> userName_;
+		read >> hashCodeUserPassword_;
 	}
 	catch (...)
 	{
@@ -332,6 +328,21 @@ ReturnCommand Manager::load(string fileName)
 	}
 	
 	result = tasks_->loadStack(&read);
-	result = ReturnCommand::READED;
+
+	verification = verifyUser();
+	
+	if (!verification)
+	{
+		clean();
+		return ReturnCommand::ERROR;
+	}
+
 	return result;
+}
+
+void Manager::clean()
+{
+	tasks_->clean();
+
+	userName_ = hashCodeUserPassword_ = "";
 }
