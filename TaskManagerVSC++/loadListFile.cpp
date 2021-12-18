@@ -1,6 +1,6 @@
 #pragma once
 
-#include "..\..\..\Library\dirent-master\include\dirent.h"
+#include "..\dirent-master\include\dirent.h"
 #include <stack>
 #include <string>
 #include <iostream>
