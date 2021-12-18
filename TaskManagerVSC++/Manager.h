@@ -10,7 +10,7 @@ stack<string>* getLoadFile(stack<string>*);
 void displayListLoadFile(stack<string>*);
 stack<string>* Copy(stack<string>*)noexcept;
 
-class Manager /*: public SaveDateInFile*/
+class Manager
 {
 public:
 	Manager();
@@ -32,7 +32,7 @@ public:
 	~Manager();
 
 protected:
-	/*ReturnCommand save() override;*/
+
 private:
 	
 	Task *tasks_ = nullptr;
@@ -42,10 +42,6 @@ private:
 	string getHashCode(string);
 
 	bool verifyUser();
-
-	string crypt();
-
-	string unCrypt(string);
 
 	string selectFile(stack<string>*);
 

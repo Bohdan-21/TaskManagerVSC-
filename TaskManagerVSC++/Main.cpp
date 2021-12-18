@@ -3,43 +3,19 @@
 #include <boost/filesystem.hpp>
 
 
-
-using namespace std;
 using boost::filesystem::directory_iterator;
 using boost::filesystem::directory_entry;
+
 
 void menu();
 
 
-
 int main()
 {
-    //test();
     menu();
-    /*Task task;
-
-    task.Add("3");
-    task.Add("1");
-    task.Add("2");
-    task.Add("3");
-    task.Add("4");
-    task.Add("5");
-    task.Add("3");
-
-    task.Display();
-
-    task.Remove("3");
-
-    cout << endl << endl;
-
-    task.Display();
-
-    cout << "END" << endl;*/
-
 
     return 0;
 }
-
 
 void menu()
 {

@@ -149,11 +149,6 @@ ReturnCommand Manager::removeTask()
 	return ReturnCommand::ERROR;
 }
 
-//ReturnCommand Manager::save()
-//{
-//	return ReturnCommand::ADDED;
-//}
-
 ReturnCommand Manager::saveDate()
 {
 	bool verification;
@@ -188,76 +183,6 @@ ReturnCommand Manager::saveDate()
 
 	write.close();
 
-	//password = crypt();//TODO:end algoritm unCrypt
-
-	return result;
-}
-
-string Manager::crypt()
-{
-	string hashKeyWords, result;;
-	int size, sizeArray, j = 0;
-	int* arr;
-
-	hashKeyWords = getHashCode(CONTROL_STRING);
-
-	sizeArray = hashKeyWords.size();
-
-	arr = new int[sizeArray] {0};
-
-	for (int i = 0; i < sizeArray; i++)
-	{
-		arr[j] = (int)CONTROL_STRING[i] * (int)CONTROL_STRING[i + 1] + 5;
-		i++;
-		j++;
-	}
-
-	size = hashCodeUserPassword_.size();
-	result = "";
-	j = 0;
-
-	for (int i = 0; i < size; i++)
-	{
-		if (j >= sizeArray)
-			j = 0;
-		result += ((int)hashCodeUserPassword_[i] - 48) + arr[j];
-		j++;
-	}
-
-	return result;
-}
-
-string Manager::unCrypt(string cryptPassword)//на вход массив интов что легче было парсить
-{
-	string hashKeyWords, result;
-	int size, sizeArray, j = 0;
-	int* arr;
-
-	hashKeyWords = getHashCode(CONTROL_STRING);
-
-	sizeArray = hashKeyWords.size();
-
-	arr = new int[sizeArray] {0};
-
-	for (int i = 0; i < sizeArray; i++)
-	{
-		arr[j] = (int)CONTROL_STRING[i] * (int)CONTROL_STRING[i + 1] + 5;
-		i++;
-		j++;
-	}
-
-	size = cryptPassword.size();
-	result = "";
-	j = 0;
-
-	for (int i = 0; i < size; i++)
-	{
-		if (j >= sizeArray)
-			j = 0;
-		result += ((int)cryptPassword[i] - 48) - arr[j];
-		j++;
-	}
-
 	return result;
 }
 
@@ -276,7 +201,6 @@ ReturnCommand Manager::loadDate()
 	fileName = selectFile(listFile);
 
 	result = load(fileName);
-
 
 	delete listFile;
 

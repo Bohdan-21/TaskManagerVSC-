@@ -28,7 +28,6 @@ stack<string>* getListFile()
 		listFile->push(dp->d_name);
 	}
 	
-
 	return listFile;
 }
 
@@ -95,5 +94,3 @@ stack<string>* Copy(stack<string>* copyStack) noexcept
 
 	return result;
 }
-
-

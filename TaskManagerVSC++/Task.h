@@ -6,7 +6,6 @@
 #include "..\TaskManagerVSC++\Special.h"
 #include <string>
 #include <iostream>
-#include "SaveDateInFile.h"
 #include <fstream>
 
 using std::ofstream;
@@ -21,7 +20,6 @@ using std::getline;
 using std::stoi;
 using std::get;
 using std::ios;
-using std::nullptr_t;
 
 class Task
 {

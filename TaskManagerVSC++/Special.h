@@ -1,6 +1,3 @@
-#define CONTROL_STRING "keyWords"
-
-
 
 enum class ReturnCommand : short {
     ADDED = 0,
