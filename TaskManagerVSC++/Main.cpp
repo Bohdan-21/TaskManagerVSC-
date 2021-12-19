@@ -1,11 +1,4 @@
 #include "Manager.h"
-#include <exception>
-#include <boost/filesystem.hpp>
-
-
-using boost::filesystem::directory_iterator;
-using boost::filesystem::directory_entry;
-
 
 void menu();
 

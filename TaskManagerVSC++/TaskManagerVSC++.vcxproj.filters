@@ -24,7 +24,7 @@
     <ClCompile Include="Manager.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="loadListFile.cpp">
+    <ClCompile Include="Special.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>

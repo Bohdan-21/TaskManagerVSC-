@@ -2,19 +2,12 @@
 #ifndef TASK_H
 #define TASK_H
 
-#include <stack>
 #include "..\TaskManagerVSC++\Special.h"
-#include <string>
-#include <iostream>
+#include "Special.h"
 #include <fstream>
 
-using std::ofstream;
 using std::fstream;
-using std::string;
-using std::stack;
-using std::cout;
 using std::cin;
-using std::endl;
 using std::to_string;
 using std::getline;
 using std::stoi;
@@ -26,30 +19,25 @@ class Task
 public:
     Task();
 
-    ReturnCommand Add(string) noexcept;
+    ReturnCommand addTask(string) noexcept;
 
-    ReturnCommand Remove(string) noexcept;
+    ReturnCommand removeTask(string) noexcept;
 
-    ReturnCommand Remove(int) noexcept;
+    ReturnCommand removeTask(int) noexcept;
 
-    ReturnCommand saveStack(fstream*);
+    ReturnCommand saveTasks(fstream*);
 
-    void Display();
+    void displayTasks();
 
-    void clean();
+    void cleanTasks();
 
-    ReturnCommand loadStack(fstream*);
+    ReturnCommand loadTasks(fstream*);
 
 protected:
 
 private:
 
-    stack<string>* tasks_ = nullptr;
-
-    stack<string> *Reverse(stack<string>*);
-
-    stack<string>* Copy(stack<string>*) noexcept;
-    
+    stack<string>* tasks_ = nullptr;   
 };
 
 #endif // TASK_H

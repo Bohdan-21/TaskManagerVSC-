@@ -4,11 +4,7 @@
 #define MANAGER_H
 
 #include "Task.h"
-
-stack<string>* getListFile();
-stack<string>* getLoadFile(stack<string>*);
-void displayListLoadFile(stack<string>*);
-stack<string>* Copy(stack<string>*)noexcept;
+#include "..\dirent-master\include\dirent.h"
 
 class Manager
 {
@@ -27,7 +23,7 @@ public:
 
 	ReturnCommand createNewUser();
 
-	void clean();
+	void cleanTasks();
 
 	~Manager();
 
@@ -46,6 +42,8 @@ private:
 	string selectFile(stack<string>*);
 
 	ReturnCommand load(string);
+
+	stack<string>* getListFile();
 };
 
-#endif // MANAGER_H
+#endif

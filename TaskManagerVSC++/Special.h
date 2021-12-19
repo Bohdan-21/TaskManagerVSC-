@@ -1,11 +1,32 @@
+#pragma once
+
+#ifndef SPECIAL_H
+#define SPECIAL_H
+#include <stack>
+#include <string>
+#include <iostream>
+#include <string.h>
+
+using std::stack;
+using std::string;
+using std::cout;
+using std::endl;
+using std::strstr;
 
 enum class ReturnCommand : short {
     ADDED = 0,
     REMOVE,
-    ERROR,
+    ERRORS,//TODO:rename ERROR to ERRORS because library dirent use ERROR. fix this later
     SAVED,
     READED,
     ACCEPT,
     CREATED,
 };
 
+stack<string>* copyStack(stack<string>*)noexcept;
+
+stack<string>* reverseStack(stack<string>*)noexcept;
+
+void displayStack(stack<string>* stackForDisplay)noexcept;
+
+#endif //SPECIAL_H

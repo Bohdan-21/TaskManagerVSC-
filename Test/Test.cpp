@@ -12,7 +12,7 @@ namespace Test
 		
 		TEST_METHOD(TestCopyTask)
 		{*/
-			//TODO: make Copy in Task public and start this test
+			//TODO: make copyStack in Task public and start this test
 			/*Task tasks;
 			stack<string>* result, *copy;
 
@@ -21,7 +21,7 @@ namespace Test
 			copy->push("2");
 			copy->push("3");
 
-			result = tasks.Copy(copy);
+			result = tasks.copyStack(copy);
 
 			Assert::IsTrue(result->top() == "3", L"Assert 1");
 			result->pop();

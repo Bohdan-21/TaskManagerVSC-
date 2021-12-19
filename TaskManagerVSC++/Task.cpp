@@ -6,19 +6,25 @@ Task::Task()
     this->tasks_ = new stack<string>();
 }
 
-ReturnCommand Task::Add(string task) noexcept
+ReturnCommand Task::addTask(string task) noexcept
 { 
+    if (this->tasks_ == nullptr)
+        return ReturnCommand::ERRORS;
+
     this->tasks_->push(task);
     return ReturnCommand::ADDED;
 }
 
-ReturnCommand Task::Remove(string task) noexcept
+ReturnCommand Task::removeTask(string task) noexcept
 {
+    if (this->tasks_ == nullptr)
+        return ReturnCommand::ERRORS;
+
     stack<string>* copy;
     int* arr;
     int size, realSizeArray = 0, j = 0, position;
 
-    copy = Copy(tasks_);
+    copy = copyStack(tasks_);
     size = tasks_->size();
 
     arr = new int[size] {0};
@@ -39,24 +45,27 @@ ReturnCommand Task::Remove(string task) noexcept
     for (int i = 0; i < realSizeArray; i++)
     {
         position = arr[i] - i;
-        Remove(position);
+        removeTask(position);
     }
     delete[] arr;
 
     return ReturnCommand::REMOVE;
 }
 
-ReturnCommand Task::Remove(int position) noexcept
+ReturnCommand Task::removeTask(int position) noexcept
 {
+    if (this->tasks_ == nullptr)
+        return ReturnCommand::ERRORS;
+
     stack<string>* result = new stack<string>();
     int size;
 
     size = tasks_->size();
 
     if(position >= size)
-        return ReturnCommand::ERROR;
+        return ReturnCommand::ERRORS;
 
-    tasks_ = Reverse(tasks_);
+    tasks_ = reverseStack(tasks_);
 
     for (int i = 0; i < size;i++)
     {
@@ -71,80 +80,21 @@ ReturnCommand Task::Remove(int position) noexcept
         }
     }
     
-    tasks_ = Copy(result);
+    tasks_ = copyStack(result);
 
     return ReturnCommand::REMOVE;
 }
 
-stack<string> *Task::Reverse(stack<string>* stackForReverse)
+ReturnCommand Task::saveTasks(fstream* write)
 {
-    stack<string> *result = new stack<string>();
-    stack<string> *copy;
+    if (this->tasks_ == nullptr)
+        return ReturnCommand::ERRORS;
 
-    copy = Copy(stackForReverse);
-
-    int size = copy->size();
-
-    for (int i = 0; i < size; i++)
-    {
-        result->push(copy->top());
-        copy->pop();
-    }
-
-    delete copy;
-
-    return result;
-}
-
-void Task::Display()
-{
-    stack<string>* taskStack;
-    int size;
-
-    taskStack = Reverse(tasks_);
-    size = taskStack->size();    
-
-    for (int i = 0; i < size; i++)
-    {
-        cout << i << " - " << taskStack->top() << endl;
-        taskStack->pop();
-    }
-}
-
-stack<string>* Task::Copy(stack<string>* copyStack) noexcept
-{
-    stack<string> *result = new stack<string>;
-    int size;
-    string* array;
-
-    size = copyStack->size();
-
-    array = new string[size];
-
-    for (int i = 0; i < size; i++)
-    {
-        array[i] = copyStack->top();
-        copyStack->pop();
-    }
-    
-    for (int i = size - 1; i != -1; i--)
-    {
-        copyStack->push(array[i]);
-        result->push(array[i]);
-    }
-
-    delete[] array;
-
-    return result;
-}
-
-ReturnCommand Task::saveStack(fstream* write)
-{
     stack<string>* copy;
     int size;
 
-    copy = Copy(tasks_);
-    copy = Reverse(copy);
+    copy = copyStack(tasks_);
+    copy = reverseStack(copy);
 
     size = copy->size();
 
@@ -158,15 +108,22 @@ ReturnCommand Task::saveStack(fstream* write)
     }
     catch (...)
     {
-        return ReturnCommand::ERROR;
+        return ReturnCommand::ERRORS;
     }
 
     return ReturnCommand::SAVED;
 }
 
-ReturnCommand Task::loadStack(fstream* read)
+ReturnCommand Task::loadTasks(fstream* read)
 {
+    if (this->tasks_ == nullptr)
+        return ReturnCommand::ERRORS;
+
     string buff = "";
+
+    if (!tasks_->empty())
+        delete tasks_;
+
     tasks_ = new stack<string>();
 
     try
@@ -184,17 +141,23 @@ ReturnCommand Task::loadStack(fstream* read)
     }
     catch (...)
     {
-        return ReturnCommand::ERROR;
+        return ReturnCommand::ERRORS;
     }
     return ReturnCommand::READED;
 }
 
-void Task::clean()
+void Task::cleanTasks()//TODO: method clean is bullshit
 {
-    int size;
+    delete tasks_;
+    tasks_ = nullptr;
+}
 
-    size = tasks_->size();
+void Task::displayTasks()
+{
+    if (this->tasks_ == nullptr)
+        return;
 
-    for (int i = 0; i < size; i++)
-        tasks_->pop();
+    stack<string>* copy = copyStack(tasks_);
+    
+    displayStack(copy);//TODO:NOT SAFE displayStack(tasks_);
 }
