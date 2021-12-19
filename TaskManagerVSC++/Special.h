@@ -18,9 +18,16 @@ enum class ReturnCommand : short {
     REMOVE,
     ERRORS,//TODO:rename ERROR to ERRORS because library dirent use ERROR. fix this later
     SAVED,
-    READED,
+    LOADED,
     ACCEPT,
     CREATED,
+    UN_ADDED,
+    UN_LOADED,
+    NOT_REMOVE,
+    UN_CREATED,
+    VERIFICATION,
+    UNVERIFICATION,
+    
 };
 
 stack<string>* copyStack(stack<string>*)noexcept;

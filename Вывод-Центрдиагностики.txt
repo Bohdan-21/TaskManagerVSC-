@@ -1,0 +1,3 @@
+﻿Профилирование "TaskManagerVSC++" запущено.
+Работа TaskManagerVSC++ прекращена.
+Профилирование "TaskManagerVSC++" остановлено.

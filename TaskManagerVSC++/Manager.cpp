@@ -4,7 +4,7 @@ Manager::Manager()
 {
 	tasks_ = new Task();
 }
-
+//+
 string Manager::getHashCode(string key)
 {
 	string hash = "";
@@ -38,7 +38,7 @@ Manager::~Manager()
 	if(tasks_ != nullptr)
 		delete tasks_;
 }
-
+//+
 ReturnCommand Manager::createNewUser()
 {
 	string userName = "", password = "";
@@ -50,7 +50,7 @@ ReturnCommand Manager::createNewUser()
 	getline(cin, password);
 
 	if(userName == "" || password == "")
-		return ReturnCommand::ERRORS;
+		return ReturnCommand::UN_CREATED;
 
 	userName_ = userName;
 	hashCodeUserPassword_ = getHashCode(password);
@@ -86,9 +86,9 @@ ReturnCommand Manager::showTask()
 		tasks_->displayTasks();
 		return ReturnCommand::ACCEPT;
 	}
-	return ReturnCommand::ERRORS;
+	return ReturnCommand::UNVERIFICATION;
 }
-
+//+
 ReturnCommand Manager::addTask()
 {
 	bool verify;
@@ -108,7 +108,7 @@ ReturnCommand Manager::addTask()
 		return result;
 	}
 
-	return ReturnCommand::ERRORS;
+	return ReturnCommand::UNVERIFICATION;
 }
 
 ReturnCommand Manager::removeTask()
@@ -129,7 +129,7 @@ ReturnCommand Manager::removeTask()
 
 		try
 		{
-			position = stoi(task);
+			position = stoi(task);//string to int
 		}
 		catch (...)
 		{
@@ -146,7 +146,7 @@ ReturnCommand Manager::removeTask()
 		}
 		return result;
 	}
-	return ReturnCommand::ERRORS;
+	return ReturnCommand::UNVERIFICATION;
 }
 
 ReturnCommand Manager::saveDate()
@@ -185,7 +185,7 @@ ReturnCommand Manager::saveDate()
 
 	return result;
 }
-
+//+
 ReturnCommand Manager::loadDate()
 {
 	stack<string>* listFile;
@@ -198,13 +198,13 @@ ReturnCommand Manager::loadDate()
 
 	fileName = selectFile(listFile);
 
-	result = load(fileName);
+	listFile = nullptr;
 
-	delete listFile;
+	result = load(fileName);
 
 	return result;
 }
-
+//+
 string Manager::selectFile(stack<string>* listFile)
 {
 	int size, choise;
@@ -226,7 +226,7 @@ string Manager::selectFile(stack<string>* listFile)
 	}
 	return "";
 }
-
+//+
 ReturnCommand Manager::load(string fileName)//TODO:SCARY
 {
 	fstream read;
@@ -236,7 +236,7 @@ ReturnCommand Manager::load(string fileName)//TODO:SCARY
 	read.open(fileName, ios::in);
 
 	if (!read.is_open())
-		return ReturnCommand::ERRORS;
+		return ReturnCommand::UN_LOADED;
 
 	try
 	{
@@ -245,7 +245,7 @@ ReturnCommand Manager::load(string fileName)//TODO:SCARY
 	}
 	catch (...)
 	{
-		return ReturnCommand::ERRORS;
+		return ReturnCommand::UN_LOADED;
 	}
 	
 	result = tasks_->loadTasks(&read);
@@ -255,7 +255,7 @@ ReturnCommand Manager::load(string fileName)//TODO:SCARY
 	if (!verification)
 	{
 		cleanTasks();
-		return ReturnCommand::ERRORS;
+		return ReturnCommand::UNVERIFICATION;
 	}
 
 	return result;
@@ -267,7 +267,7 @@ void Manager::cleanTasks()
 
 	userName_ = hashCodeUserPassword_ = "";
 }
-
+//+
 stack<string>* Manager::getListFile()
 {
 	DIR* direc;

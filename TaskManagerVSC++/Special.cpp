@@ -40,6 +40,8 @@ stack<string>* reverseStack(stack<string>* stackForReverse)noexcept
 		stackForReverse->pop();
 	}
 
+	delete stackForReverse;
+
 	return result;
 }
 

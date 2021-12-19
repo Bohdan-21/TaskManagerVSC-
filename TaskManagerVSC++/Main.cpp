@@ -2,6 +2,8 @@
 
 void menu();
 
+void showMessage(ReturnCommand);
+
 
 int main()
 {
@@ -32,78 +34,90 @@ void menu()
         case 1:
         {
             result = manager->createNewUser();
-
-            if (result == ReturnCommand::CREATED)
-                cout << "User create" << endl;
-            else
-                cout << "User cant create" << endl;
-
             break;
         }
         case 2:
         {   
             result = manager->addTask();
-            
-            if (result == ReturnCommand::ADDED)
-                cout << "Your task added" << endl;
-            else 
-                cout << "Your task cant added" << endl;
             break;
         }
         case 3:
         {
             result = manager->removeTask();
-            
-            if (result == ReturnCommand::REMOVE)
-                cout << "Your task remove" << endl;
-            else
-                cout << "Your task cant remove" << endl;
             break;
         }
         case 4:
         {
             result = manager->showTask();
-
-            if (result == ReturnCommand::ACCEPT)
-                cout << "Your do verifycatioun" << endl;
-            else
-                cout << "Your dont verifycation" << endl;
            break;
         }
         case 5:
         {
             result = manager->saveDate();
-            
-            if (result == ReturnCommand::SAVED)
-                cout << "Your file saved" << endl;
-            else
-                cout << "Your file not saved" << endl;
-
             break;
         }
         case 6:
         {
             result = manager->loadDate();
-
-            if (result == ReturnCommand::READED)
-                cout << "Your file is read" << endl;
-            else
-                cout << "Your file cant read" << endl;
-
-
             break;
-
         }
         case 7:
         {
-            return ;
+            return;
         }
         }
+        showMessage(result);
+
         system("pause");
         system("cls");
     }
 
-
     manager->~Manager();
     manager = nullptr;
+}
+
+void showMessage(ReturnCommand command)
+{
+    switch (command)
+    {
+    case ReturnCommand::ADDED:
+        cout << "Your task added" << endl;
+        break;
+    case ReturnCommand::REMOVE:
+        cout << "Your task remove" << endl;
+        break;
+    case ReturnCommand::ERRORS:
+        cout << "Fatal error!!!" << endl;
+        break;
+    case ReturnCommand::SAVED:
+        cout << "Saved successful" << endl;
+        break;
+    case ReturnCommand::LOADED:
+        cout << "Load file successful" << endl;
+        break;
+    case ReturnCommand::UN_LOADED:
+        cout << "Load file unsuccessful" << endl;
+        break;
+    case ReturnCommand::ACCEPT:
+        cout << "Validation pass successful" << endl;
+        break;
+    case ReturnCommand::CREATED:
+        cout << "New user create" << endl;
+        break;
+    case ReturnCommand::UN_CREATED:
+        cout << "New user cant create" << endl;
+        break;
+    case ReturnCommand::VERIFICATION:
+        cout << "Access is allowed" << endl;
+        break;
+    case ReturnCommand::UNVERIFICATION:
+        cout << "Access is denied" << endl;
+        break;
+    case ReturnCommand::UN_ADDED:
+        cout << "Your task cant added" << endl;
+        break;
+    case ReturnCommand::NOT_REMOVE:
+        cout << "Your task cant remove" << endl;
+        break;
+    }
 }

@@ -5,31 +5,32 @@ Task::Task()
 {
     this->tasks_ = new stack<string>();
 }
-
+//+
 ReturnCommand Task::addTask(string task) noexcept
 { 
     if (this->tasks_ == nullptr)
-        return ReturnCommand::ERRORS;
+        return ReturnCommand::UN_ADDED;
 
     this->tasks_->push(task);
     return ReturnCommand::ADDED;
 }
-
+//testing
 ReturnCommand Task::removeTask(string task) noexcept
 {
     if (this->tasks_ == nullptr)
-        return ReturnCommand::ERRORS;
+        return ReturnCommand::NOT_REMOVE;
 
     stack<string>* copy;
     int* arr;
     int size, realSizeArray = 0, j = 0, position;
 
     copy = copyStack(tasks_);
-    size = tasks_->size();
+    copy = reverseStack(copy);
+    size = copy->size();
 
     arr = new int[size] {0};
 
-    for (int i = size - 1; i != -1; i--)
+    for (int i = 0; i < size;i++)//TODO: i = 0;i < size;i++
     {
         if (copy->top() == task)
         {
@@ -51,19 +52,16 @@ ReturnCommand Task::removeTask(string task) noexcept
 
     return ReturnCommand::REMOVE;
 }
-
+//testing
 ReturnCommand Task::removeTask(int position) noexcept
 {
-    if (this->tasks_ == nullptr)
-        return ReturnCommand::ERRORS;
-
     stack<string>* result = new stack<string>();
     int size;
 
     size = tasks_->size();
 
-    if(position >= size)
-        return ReturnCommand::ERRORS;
+    if (this->tasks_ == nullptr || position >= size)
+        return ReturnCommand::NOT_REMOVE;
 
     tasks_ = reverseStack(tasks_);
 
@@ -80,7 +78,11 @@ ReturnCommand Task::removeTask(int position) noexcept
         }
     }
     
+    delete tasks_;
+
     tasks_ = copyStack(result);
+
+    delete result;
 
     return ReturnCommand::REMOVE;
 }
@@ -113,15 +115,12 @@ ReturnCommand Task::saveTasks(fstream* write)
 
     return ReturnCommand::SAVED;
 }
-
+//+
 ReturnCommand Task::loadTasks(fstream* read)
 {
-    if (this->tasks_ == nullptr)
-        return ReturnCommand::ERRORS;
-
     string buff = "";
 
-    if (!tasks_->empty())
+    if (!tasks_ != NULL)
         delete tasks_;
 
     tasks_ = new stack<string>();
@@ -141,9 +140,9 @@ ReturnCommand Task::loadTasks(fstream* read)
     }
     catch (...)
     {
-        return ReturnCommand::ERRORS;
+        return ReturnCommand::UN_LOADED;
     }
-    return ReturnCommand::READED;
+    return ReturnCommand::LOADED;
 }
 
 void Task::cleanTasks()//TODO: method clean is bullshit
