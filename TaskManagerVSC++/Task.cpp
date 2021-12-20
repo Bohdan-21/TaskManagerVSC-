@@ -21,34 +21,29 @@ ReturnCommand Task::removeTask(string task) noexcept
         return ReturnCommand::NOT_REMOVE;
 
     stack<string>* copy;
-    int* arr;
-    int size, realSizeArray = 0, j = 0, position;
+    int size;
+    string temp;
 
     copy = copyStack(tasks_);
-    copy = reverseStack(copy);
+
+    delete tasks_;
+
+    tasks_ = new stack<string>();
+
     size = copy->size();
 
-    arr = new int[size] {0};
-
-    for (int i = 0; i < size;i++)//TODO: i = 0;i < size;i++
+    for (int i = 0; i < size;i++)
     {
-        if (copy->top() == task)
+        temp = copy->top();
+
+        if (temp != task)
         {
-            arr[j] = i;
-            j++;
-            realSizeArray++;
+            tasks_->push(temp);
         }
         copy->pop();
     }
 
     delete copy;
-
-    for (int i = 0; i < realSizeArray; i++)
-    {
-        position = arr[i] - i;
-        removeTask(position);
-    }
-    delete[] arr;
 
     return ReturnCommand::REMOVE;
 }
@@ -159,4 +154,6 @@ void Task::displayTasks()
     stack<string>* copy = copyStack(tasks_);
     
     displayStack(copy);//TODO:NOT SAFE displayStack(tasks_);
+
+    delete copy;
 }

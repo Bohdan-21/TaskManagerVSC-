@@ -16,6 +16,9 @@ stack<string>* copyStack(stack<string>* copyStack) noexcept
 		copyStack->pop();
 	}
 
+	delete copyStack;
+	copyStack = new stack<string>();
+	
 	for (int i = size - 1; i != -1; i--)
 	{
 		copyStack->push(array[i]);
