@@ -1,4 +1,6 @@
 #include "Manager.h"
+#include <sql.h>
+
 
 void menu();
 
@@ -33,32 +35,32 @@ void menu()
         {
         case 1:
         {
-            result = manager->createNewUser();
+            result = manager->createNewUser();//+
             break;
         }
         case 2:
         {   
-            result = manager->addTask();
+            result = manager->addTask();//+
             break;
         }
         case 3:
         {
-            result = manager->removeTask();
+            result = manager->removeTask();//+
             break;
         }
         case 4:
         {
-            result = manager->showTask();
+            result = manager->showTask();//+
            break;
         }
         case 5:
         {
-            result = manager->saveDate();
+            result = manager->saveDate();//+
             break;
         }
         case 6:
         {
-            result = manager->loadDate();
+            result = manager->loadDate();//+
             break;
         }
         case 7:
@@ -118,6 +120,9 @@ void showMessage(ReturnCommand command)
         break;
     case ReturnCommand::NOT_REMOVE:
         cout << "Your task cant remove" << endl;
+        break;
+    case ReturnCommand::UN_SAVED:
+        cout << "Your task cant save" << endl;
         break;
     }
 }

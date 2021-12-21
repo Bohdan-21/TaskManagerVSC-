@@ -55,6 +55,8 @@ ReturnCommand Manager::createNewUser()
 	userName_ = userName;
 	hashCodeUserPassword_ = getHashCode(password);
 
+	tasks_->create();
+
 	return ReturnCommand::CREATED;
 }
 
@@ -156,7 +158,7 @@ ReturnCommand Manager::saveDate()
 	verification = verifyUser();
 
 	if (!verification)
-		return ReturnCommand::ERRORS;
+		return ReturnCommand::UNVERIFICATION;
 
 	fstream write;
 	string filename, password;
@@ -167,7 +169,7 @@ ReturnCommand Manager::saveDate()
 	write.open(filename, ios::out);
 
 	if (!write.is_open())
-		return ReturnCommand::ERRORS;
+		return ReturnCommand::UN_SAVED;
 
 	try
 	{
@@ -177,7 +179,7 @@ ReturnCommand Manager::saveDate()
 	}
 	catch (...)
 	{
-		return ReturnCommand::ERRORS;
+		return ReturnCommand::UN_SAVED;
 	}
 	result = tasks_->saveTasks(&write);
 
@@ -198,7 +200,7 @@ ReturnCommand Manager::loadDate()
 
 	fileName = selectFile(listFile);
 
-	listFile = nullptr;
+	//delete listFile;//this operation works in function reverseStack
 
 	result = load(fileName);
 
@@ -210,7 +212,7 @@ string Manager::selectFile(stack<string>* listFile)
 	int size, choise;
 	string fileName;
 
-	listFile = reverseStack(listFile);
+	listFile = reverseStack(listFile);//критическая точка удаление списка файлов старого образца и подмена на новый
 
 	size = listFile->size();
 	
@@ -222,7 +224,10 @@ string Manager::selectFile(stack<string>* listFile)
 		fileName = listFile->top();
 		listFile->pop();
 		if (choise == i)
+		{
+			delete listFile;
 			return fileName;
+		}
 	}
 	return "";
 }
@@ -272,7 +277,7 @@ stack<string>* Manager::getListFile()
 {
 	DIR* direc;
 	dirent* dp;
-	stack<string>* listFile = new stack<string>();
+	stack<string>* listLoadFile = new stack<string>();
 	string fileName;
 	char* pos;
 
@@ -284,8 +289,8 @@ stack<string>* Manager::getListFile()
 		pos = strstr(&fileName[0], ".txt");//fynction find only txt file
 
 		if(pos != NULL)
-			listFile->push(fileName);
+			listLoadFile->push(fileName);
 	}
 
-	return listFile;
+	return listLoadFile;
 }

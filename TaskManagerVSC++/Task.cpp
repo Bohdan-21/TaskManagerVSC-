@@ -1,10 +1,5 @@
 #include "Task.h"
 
-
-Task::Task()
-{
-    this->tasks_ = new stack<string>();
-}
 //+
 ReturnCommand Task::addTask(string task) noexcept
 { 
@@ -85,7 +80,7 @@ ReturnCommand Task::removeTask(int position) noexcept
 ReturnCommand Task::saveTasks(fstream* write)
 {
     if (this->tasks_ == nullptr)
-        return ReturnCommand::ERRORS;
+        return ReturnCommand::SAVED;
 
     stack<string>* copy;
     int size;
@@ -105,8 +100,10 @@ ReturnCommand Task::saveTasks(fstream* write)
     }
     catch (...)
     {
-        return ReturnCommand::ERRORS;
+        return ReturnCommand::UN_SAVED;
     }
+
+    delete copy;
 
     return ReturnCommand::SAVED;
 }
@@ -156,4 +153,11 @@ void Task::displayTasks()
     displayStack(copy);//TODO:NOT SAFE displayStack(tasks_);
 
     delete copy;
+}
+
+void Task::create()
+{
+    if (tasks_ != nullptr)
+        delete tasks_;
+    tasks_ = new stack<string>();
 }

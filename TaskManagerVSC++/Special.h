@@ -21,13 +21,13 @@ enum class ReturnCommand : short {
     LOADED,
     ACCEPT,
     CREATED,
+    UN_SAVED,
     UN_ADDED,
     UN_LOADED,
     NOT_REMOVE,
     UN_CREATED,
     VERIFICATION,
     UNVERIFICATION,
-    
 };
 
 stack<string>* copyStack(stack<string>*)noexcept;

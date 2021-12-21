@@ -17,7 +17,6 @@ using std::ios;
 class Task
 {
 public:
-    Task();
 
     ReturnCommand addTask(string) noexcept;
 
@@ -30,6 +29,8 @@ public:
     void displayTasks();
 
     void cleanTasks();
+
+    void create();
 
     ReturnCommand loadTasks(fstream*);
 

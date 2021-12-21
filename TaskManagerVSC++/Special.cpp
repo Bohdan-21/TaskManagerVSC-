@@ -16,8 +16,8 @@ stack<string>* copyStack(stack<string>* copyStack) noexcept
 		copyStack->pop();
 	}
 
-	delete copyStack;
-	copyStack = new stack<string>();
+	/*delete copyStack;
+	copyStack = new stack<string>();*/
 	
 	for (int i = size - 1; i != -1; i--)
 	{
@@ -43,7 +43,7 @@ stack<string>* reverseStack(stack<string>* stackForReverse)noexcept
 		stackForReverse->pop();
 	}
 
-	delete stackForReverse;
+	delete stackForReverse;//очистка данных
 
 	return result;
 }
