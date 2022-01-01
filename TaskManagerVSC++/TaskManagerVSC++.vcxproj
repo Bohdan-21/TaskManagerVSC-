@@ -72,13 +72,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>E:\c++\C++RoadMap\Library\boost_1_78_0;$(IncludePath)</IncludePath>
+    <IncludePath>E:\c++\C++RoadMap\Library\boost_1_78_0;E:\c++\C++RoadMap\DB\Framework For DB\SQLAPI\include;$(IncludePath)</IncludePath>
     <LibraryPath>E:\c++\C++RoadMap\Library\boost_1_78_0\stage\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>E:\c++\C++RoadMap\Library\boost_1_78_0;$(IncludePath)</IncludePath>
-    <LibraryPath>E:\c++\C++RoadMap\Library\boost_1_78_0\stage\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>E:\c++\C++RoadMap\DB\Framework For DB\SQLAPI\vs2019;E:\c++\C++RoadMap\Library\boost_1_78_0;$(IncludePath)</IncludePath>
+    <LibraryPath>E:\c++\C++RoadMap\DB\Framework For DB\SQLAPI\vs2019\lib;E:\c++\C++RoadMap\Library\boost_1_78_0\stage\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>

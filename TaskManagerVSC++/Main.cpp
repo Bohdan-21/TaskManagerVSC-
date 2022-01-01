@@ -1,5 +1,7 @@
 #include "Manager.h"
-#include <sql.h>
+#include <SQLAPI.h>
+
+
 
 
 void menu();
@@ -9,7 +11,24 @@ void showMessage(ReturnCommand);
 
 int main()
 {
-    menu();
+
+    SAConnection conn;
+
+
+    try
+    {
+        conn.Connect()
+    }
+    catch (...)
+    {
+        cout << "FATAL ERROR" << endl;
+    }
+   //menu();
+    
+
+   
+
+
 
     return 0;
 }
