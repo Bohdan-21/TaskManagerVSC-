@@ -1,15 +1,77 @@
 #include "Manager.h"
-#include <sql.h>
+
 
 
 void menu();
 
 void showMessage(ReturnCommand);
 
+using namespace std;
+
+#define SQL_RESULT_LEN 240
+#define SQL_RETURN_CODE_LEN 1000
 
 int main()
 {
-    menu();
+
+
+
+
+    //SQLHANDLE sqlconnhandle;
+    //SQLHANDLE sqlStmthandle;
+    //SQLHANDLE sqlEnvhandle;
+    //SQLWCHAR retconstring[SQL_RETURN_CODE_LEN];
+
+    //sqlconnhandle = NULL;
+    //sqlStmthandle = NULL;
+
+    //if (SQL_SUCCESS != SQLAllocHandle(SQL_HANDLE_ENV, SQL_NULL_HANDLE, &sqlEnvhandle))
+    //    cout << "first" << endl;
+    //if(SQL_SUCCESS != SQLSetEnvAttr(sqlEnvhandle, SQL_ATTR_ODBC_VERSION, (SQLPOINTER)SQL_OV_ODBC3, 0))
+    //    cout << "second" << endl;
+    //if (SQL_SUCCESS != SQLAllocHandle(SQL_HANDLE_DBC, sqlEnvhandle, &sqlconnhandle))
+    //    cout << "third" << endl;
+
+
+    //SQLRETURN sql_connect = SQLDriverConnect(sqlconnhandle, NULL,
+    //    //(SQLWCHAR*)L"DRIVER={SQL Server}; SERVER=localhost, 50100; DATABASE=master;UID=username;PWD=password;"//if need  use  username and password
+    //    (SQLWCHAR*)L"DRIVER={SQL Server}; SERVER=localhost, 50100; DATABASE=master;Trusted=true;",
+    //    SQL_NTS, retconstring, 1024, NULL, SQL_DRIVER_NOPROMPT);
+
+    //switch (sql_connect)
+    //{
+    //case  SQL_SUCCESS:
+    //    cout << "1" << endl;
+    //    break;
+    //case  SQL_SUCCESS_WITH_INFO:
+    //    cout << "2" << endl;
+    //    break;
+    //case  SQL_INVALID_HANDLE:
+    //    cout << "3" << endl;
+    //    break;
+    //case  SQL_ERROR:
+    //    cout << "4" << endl;
+    //    break;
+    //}
+
+
+    //if (SQL_SUCCESS == SQLExecDirect(sqlStmthandle, (SQLWCHAR*)L"SELECT @@VERSION", SQL_NTS)) 
+    //{
+    //    SQLCHAR sqlVersion[SQL_RESULT_LEN];
+    //    SQLLEN prtSqlVersion;
+
+    //    while (SQLFetch(sqlStmthandle) == SQL_SUCCESS)
+    //    {
+    //        SQLGetData(sqlStmthandle, 1, SQL_CHAR, sqlVersion, SQL_RESULT_LEN, &prtSqlVersion);
+
+    //        cout << "\n\nQuery result" << endl;
+    //        cout << sqlVersion << endl;
+    //    }
+    //}
+
+
+
+    //menu();
 
     return 0;
 }
