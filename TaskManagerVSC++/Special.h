@@ -6,12 +6,14 @@
 #include <string>
 #include <iostream>
 #include <string.h>
+#include <memory>
 
 using std::stack;
 using std::string;
 using std::cout;
 using std::endl;
 using std::strstr;
+
 
 enum class ReturnCommand : short {
     ADDED = 0,
