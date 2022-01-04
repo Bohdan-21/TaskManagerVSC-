@@ -190,7 +190,7 @@ ReturnCommand Manager::saveDate()
 //+
 ReturnCommand Manager::loadDate()
 {
-	stack<string>* listFile;
+	shared_ptr<stack<string>> listFile;
 	string fileName;
 	ReturnCommand result;
 
@@ -200,14 +200,12 @@ ReturnCommand Manager::loadDate()
 
 	fileName = selectFile(listFile);
 
-	//delete listFile;//this operation works in function reverseStack
-
 	result = load(fileName);
 
 	return result;
 }
 //+
-string Manager::selectFile(stack<string>* listFile)
+string Manager::selectFile(shared_ptr<stack<string>> listFile)
 {
 	int size, choise;
 	string fileName;
@@ -224,10 +222,7 @@ string Manager::selectFile(stack<string>* listFile)
 		fileName = listFile->top();
 		listFile->pop();
 		if (choise == i)
-		{
-			delete listFile;
 			return fileName;
-		}
 	}
 	return "";
 }
@@ -273,11 +268,11 @@ void Manager::cleanTasks()
 	userName_ = hashCodeUserPassword_ = "";
 }
 //+
-stack<string>* Manager::getListFile()
+shared_ptr<stack<string>> Manager::getListFile()
 {
 	DIR* direc;
 	dirent* dp;
-	stack<string>* listLoadFile = new stack<string>();
+	shared_ptr<stack<string>> listLoadFile = shared_ptr<stack<string>>(new stack<string>);
 	string fileName;
 	char* pos;
 

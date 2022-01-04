@@ -39,11 +39,11 @@ private:
 
 	bool verifyUser();
 
-	string selectFile(stack<string>*);
+	string selectFile(shared_ptr<stack<string>>);
 
 	ReturnCommand load(string);
 
-	stack<string>* getListFile();
+	shared_ptr<stack<string>> getListFile();
 };
 
 #endif

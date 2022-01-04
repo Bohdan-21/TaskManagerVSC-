@@ -13,7 +13,8 @@ using std::string;
 using std::cout;
 using std::endl;
 using std::strstr;
-
+using std::unique_ptr;
+using std::shared_ptr;
 
 enum class ReturnCommand : short {
     ADDED = 0,
@@ -32,10 +33,10 @@ enum class ReturnCommand : short {
     UNVERIFICATION,
 };
 
-stack<string>* copyStack(stack<string>*)noexcept;
+shared_ptr<stack<string>> copyStack(shared_ptr<stack<string>>)noexcept;
 
-stack<string>* reverseStack(stack<string>*)noexcept;
+shared_ptr<stack<string>> reverseStack(shared_ptr<stack<string>>)noexcept;
 
-void displayStack(stack<string>* stackForDisplay)noexcept;
+void displayStack(shared_ptr<stack<string>> stackForDisplay)noexcept;
 
 #endif //SPECIAL_H

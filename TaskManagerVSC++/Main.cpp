@@ -6,7 +6,6 @@ void menu();
 
 void showMessage(ReturnCommand);
 
-
 int main()
 {
     menu();

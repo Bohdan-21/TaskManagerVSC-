@@ -1,38 +1,32 @@
 #include "Special.h"
 
-stack<string>* copyStack(stack<string>* copyStack) noexcept
+shared_ptr<stack<string>> copyStack(shared_ptr<stack<string>> copyStack) noexcept
 {
-	stack<string>* result = new stack<string>();
 	int size;
-	string* array;
 
 	size = copyStack->size();
 
-	array = new string[size];
+	unique_ptr<string[]> arr(new string[size]);
+	shared_ptr<stack<string>> result = shared_ptr<stack<string>>(new stack<string>);
 
 	for (int i = 0; i < size; i++)
 	{
-		array[i] = copyStack->top();
+		arr[i] = copyStack->top();
 		copyStack->pop();
 	}
-
-	/*delete copyStack;
-	copyStack = new stack<string>();*/
 	
 	for (int i = size - 1; i != -1; i--)
 	{
-		copyStack->push(array[i]);
-		result->push(array[i]);
+		copyStack->push(arr[i]);
+		result->push(arr[i]);
 	}
-
-	delete[] array;
 
 	return result;
 }
 
-stack<string>* reverseStack(stack<string>* stackForReverse)noexcept
+shared_ptr<stack<string>> reverseStack(shared_ptr<stack<string>> stackForReverse)noexcept
 {
-	stack<string>* result = new stack<string>();
+	shared_ptr<stack<string>> result = shared_ptr<stack<string>>(new stack<string>);
 	int size;
 
 	size = stackForReverse->size();
@@ -42,15 +36,12 @@ stack<string>* reverseStack(stack<string>* stackForReverse)noexcept
 		result->push(stackForReverse->top());
 		stackForReverse->pop();
 	}
-
-	delete stackForReverse;//очистка данных
-
 	return result;
 }
 
-void displayStack(stack<string>* stackForDisplay)noexcept
+void displayStack(shared_ptr<stack<string>> stackForDisplay)noexcept
 {
-	stack<string>* copy;
+	shared_ptr<stack<string>> copy;
 	int size;
 
 	copy = copyStack(stackForDisplay);//copy stack
@@ -63,6 +54,4 @@ void displayStack(stack<string>* stackForDisplay)noexcept
 		cout << i << " - " << copy->top() << endl;
 		copy->pop();
 	}
-
-	delete copy;
 }

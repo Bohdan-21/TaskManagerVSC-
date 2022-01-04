@@ -38,7 +38,7 @@ protected:
 
 private:
 
-    stack<string>* tasks_ = nullptr;   
+    shared_ptr<stack<string>> tasks_ = shared_ptr<stack<string>>(new stack<string>);
 };
 
 #endif // TASK_H

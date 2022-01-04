@@ -15,15 +15,13 @@ ReturnCommand Task::removeTask(string task) noexcept
     if (this->tasks_ == nullptr)
         return ReturnCommand::NOT_REMOVE;
 
-    stack<string>* copy;
+    shared_ptr<stack<string>> copy;
     int size;
     string temp;
 
     copy = copyStack(tasks_);
 
-    delete tasks_;
-
-    tasks_ = new stack<string>();
+    tasks_ = shared_ptr<stack<string>>(new stack<string>);
 
     size = copy->size();
 
@@ -38,14 +36,12 @@ ReturnCommand Task::removeTask(string task) noexcept
         copy->pop();
     }
 
-    delete copy;
-
     return ReturnCommand::REMOVE;
 }
 //testing
 ReturnCommand Task::removeTask(int position) noexcept
 {
-    stack<string>* result = new stack<string>();
+    shared_ptr<stack<string>> result = shared_ptr<stack<string>>(new stack<string>);
     int size;
 
     size = tasks_->size();
@@ -67,12 +63,8 @@ ReturnCommand Task::removeTask(int position) noexcept
             tasks_->pop();
         }
     }
-    
-    delete tasks_;
 
     tasks_ = copyStack(result);
-
-    delete result;
 
     return ReturnCommand::REMOVE;
 }
@@ -82,7 +74,7 @@ ReturnCommand Task::saveTasks(fstream* write)
     if (this->tasks_ == nullptr)
         return ReturnCommand::SAVED;
 
-    stack<string>* copy;
+    shared_ptr<stack<string>> copy;
     int size;
 
     copy = copyStack(tasks_);
@@ -103,8 +95,6 @@ ReturnCommand Task::saveTasks(fstream* write)
         return ReturnCommand::UN_SAVED;
     }
 
-    delete copy;
-
     return ReturnCommand::SAVED;
 }
 //+
@@ -112,10 +102,7 @@ ReturnCommand Task::loadTasks(fstream* read)
 {
     string buff = "";
 
-    if (!tasks_ != NULL)
-        delete tasks_;
-
-    tasks_ = new stack<string>();
+    tasks_ = shared_ptr<stack<string>>(new stack<string>);
 
     try
     {
@@ -139,7 +126,6 @@ ReturnCommand Task::loadTasks(fstream* read)
 
 void Task::cleanTasks()//TODO: method clean is bullshit
 {
-    delete tasks_;
     tasks_ = nullptr;
 }
 
@@ -148,16 +134,12 @@ void Task::displayTasks()
     if (this->tasks_ == nullptr)
         return;
 
-    stack<string>* copy = copyStack(tasks_);
+    shared_ptr<stack<string>> copy = copyStack(tasks_);
     
     displayStack(copy);//TODO:NOT SAFE displayStack(tasks_);
-
-    delete copy;
 }
 
 void Task::create()
 {
-    if (tasks_ != nullptr)
-        delete tasks_;
-    tasks_ = new stack<string>();
+    tasks_ = shared_ptr<stack<string>>(new stack<string>);
 }
