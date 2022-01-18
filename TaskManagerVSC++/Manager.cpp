@@ -5,38 +5,41 @@ Manager::Manager()
 	tasks_ = new Task();
 }
 //+
-string Manager::getHashCode(string key)
+string Manager::getHashCode(string userDataForHashing)//TODO:rename variable
 {
-	string hash = "";
-	int insideHash = 0;
-	int size;
+	string hashedData = "";
+	int innerHash = 0;
+	size_t sizeUserData;
 
-	size = key.size();
+	sizeUserData = userDataForHashing.size();
 
-	for(int i = 0; i < size; i++)
+	for(size_t i = 0; i < sizeUserData; i++)
 	{
 		if (i == 0)
 		{
-			hash += to_string((int)key[i] % 100);
+			hashedData += to_string((int)userDataForHashing[i] % 100);
 		}
-		else if (i == size - 1)
+		else if (i == sizeUserData - 1)
 		{
-			hash += to_string(insideHash);
-			hash += to_string((int)key[i] % 100);
+			hashedData += to_string(innerHash);
+			hashedData += to_string((int)userDataForHashing[i] % 100);
 		}
 		else
 		{
-			insideHash += (int)((int)key[i] % 100);
+			innerHash += (int)((int)userDataForHashing[i] % 100);
 		}
 	}
 
-	return hash;
+	return hashedData;
 }
 
 Manager::~Manager()
 {
-	if(tasks_ != nullptr)
+	if (tasks_ != nullptr)
+	{
+		cleanTasks();
 		delete tasks_;
+	}
 }
 //+
 ReturnCommand Manager::createNewUser()
@@ -105,7 +108,7 @@ ReturnCommand Manager::addTask()
 		cout << "Your task -->";
 		getline(cin, task);
 
-		result = tasks_->addTask(task);
+		result = tasks_->insert(task);
 
 		return result;
 	}
@@ -140,11 +143,11 @@ ReturnCommand Manager::removeTask()
 
 		if (isNumber)
 		{
-			result = tasks_->removeTask(position);
+			result = tasks_->remove(position);
 		}
 		else
 		{
-			result = tasks_->removeTask(task);
+			result = tasks_->remove(task);
 		}
 		return result;
 	}
@@ -207,8 +210,9 @@ ReturnCommand Manager::loadDate()
 //+
 string Manager::selectFile(shared_ptr<stack<string>> listFile)
 {
-	int size, choise;
+	int choise;
 	string fileName;
+	size_t size;
 
 	listFile = reverseStack(listFile);//критическая точка удаление списка файлов старого образца и подмена на новый
 
@@ -217,7 +221,7 @@ string Manager::selectFile(shared_ptr<stack<string>> listFile)
 	cout << "Change file for load -->";
 	cin >> choise;
 
-	for (int i = 0; i < size; i++)
+	for (size_t i = 0; i < size; i++)
 	{
 		fileName = listFile->top();
 		listFile->pop();
@@ -283,9 +287,11 @@ shared_ptr<stack<string>> Manager::getListFile()
 		fileName = dp->d_name;
 		pos = strstr(&fileName[0], ".txt");//fynction find only txt file
 
-		if(pos != NULL)
+		if (pos != NULL)
 			listLoadFile->push(fileName);
 	}
+	delete direc;
+	delete dp;
 
 	return listLoadFile;
 }

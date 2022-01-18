@@ -1,7 +1,8 @@
 #include "Task.h"
 
+
 //+
-ReturnCommand Task::addTask(string task) noexcept
+ReturnCommand Task::insert(string task) noexcept
 { 
     if (this->tasks_ == nullptr)
         return ReturnCommand::UN_ADDED;
@@ -10,13 +11,13 @@ ReturnCommand Task::addTask(string task) noexcept
     return ReturnCommand::ADDED;
 }
 //testing
-ReturnCommand Task::removeTask(string task) noexcept
+ReturnCommand Task::remove(string task) noexcept
 {
     if (this->tasks_ == nullptr)
         return ReturnCommand::NOT_REMOVE;
 
     shared_ptr<stack<string>> copy;
-    int size;
+    size_t size;
     string temp;
 
     copy = copyStack(tasks_);
@@ -25,7 +26,7 @@ ReturnCommand Task::removeTask(string task) noexcept
 
     size = copy->size();
 
-    for (int i = 0; i < size;i++)
+    for (size_t i = 0; i < size;i++)
     {
         temp = copy->top();
 
@@ -39,19 +40,19 @@ ReturnCommand Task::removeTask(string task) noexcept
     return ReturnCommand::REMOVE;
 }
 //testing
-ReturnCommand Task::removeTask(int position) noexcept
+ReturnCommand Task::remove(int position) noexcept
 {
     shared_ptr<stack<string>> result = shared_ptr<stack<string>>(new stack<string>);
-    int size;
+    size_t size;
 
     size = tasks_->size();
 
-    if (this->tasks_ == nullptr || position >= size)
+    if (this->tasks_ == nullptr || position >= size)//what i must do in this situation. Warning c4018 int > size_t type
         return ReturnCommand::NOT_REMOVE;
 
     tasks_ = reverseStack(tasks_);
 
-    for (int i = 0; i < size;i++)
+    for (size_t i = 0; i < size;i++)
     {
         if (position != i)
         {
@@ -75,7 +76,7 @@ ReturnCommand Task::saveTasks(fstream* write)
         return ReturnCommand::SAVED;
 
     shared_ptr<stack<string>> copy;
-    int size;
+    size_t size;
 
     copy = copyStack(tasks_);
     copy = reverseStack(copy);
@@ -84,7 +85,7 @@ ReturnCommand Task::saveTasks(fstream* write)
 
     try
     {
-        for (int i = 0; i < size; i++)
+        for (size_t i = 0; i < size; i++)
         {
            *write << copy->top() << "\n";
             copy->pop();
@@ -98,7 +99,7 @@ ReturnCommand Task::saveTasks(fstream* write)
     return ReturnCommand::SAVED;
 }
 //+
-ReturnCommand Task::loadTasks(fstream* read)
+ReturnCommand Task::loadTasks(fstream* read)//maybe this? 
 {
     string buff = "";
 

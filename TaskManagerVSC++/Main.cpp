@@ -1,6 +1,5 @@
 #include "Manager.h"
-#include <sql.h>
-
+#include <unordered_map>
 
 void menu();
 
@@ -64,6 +63,7 @@ void menu()
         }
         case 7:
         {
+            manager->~Manager();
             return;
         }
         }

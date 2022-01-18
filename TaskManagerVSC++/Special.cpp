@@ -1,21 +1,21 @@
 #include "Special.h"
 
-shared_ptr<stack<string>> copyStack(shared_ptr<stack<string>> copyStack) noexcept
+shared_ptr<stack<string>> copyStack(shared_ptr<stack<string>> copyStack) noexcept//TODO:rename
 {
-	int size;
+	size_t sizeAllTasks;
 
-	size = copyStack->size();
+	sizeAllTasks = copyStack->size();
 
-	unique_ptr<string[]> arr(new string[size]);
+	unique_ptr<string[]> arr(new string[sizeAllTasks]);
 	shared_ptr<stack<string>> result = shared_ptr<stack<string>>(new stack<string>);
 
-	for (int i = 0; i < size; i++)
+	for (size_t i = 0; i < sizeAllTasks; i++)
 	{
 		arr[i] = copyStack->top();
 		copyStack->pop();
 	}
 	
-	for (int i = size - 1; i != -1; i--)
+	for (size_t i = sizeAllTasks - 1; i != -1; i--)
 	{
 		copyStack->push(arr[i]);
 		result->push(arr[i]);
@@ -24,14 +24,14 @@ shared_ptr<stack<string>> copyStack(shared_ptr<stack<string>> copyStack) noexcep
 	return result;
 }
 
-shared_ptr<stack<string>> reverseStack(shared_ptr<stack<string>> stackForReverse)noexcept
+shared_ptr<stack<string>> reverseStack(shared_ptr<stack<string>> stackForReverse)noexcept//TODO:dont use this
 {
 	shared_ptr<stack<string>> result = shared_ptr<stack<string>>(new stack<string>);
-	int size;
+	size_t sizeAllTasks;
 
-	size = stackForReverse->size();
+	sizeAllTasks = stackForReverse->size();
 
-	for (int i = 0; i < size; i++)
+	for (size_t i = 0; i < sizeAllTasks; i++)
 	{
 		result->push(stackForReverse->top());
 		stackForReverse->pop();
@@ -39,17 +39,17 @@ shared_ptr<stack<string>> reverseStack(shared_ptr<stack<string>> stackForReverse
 	return result;
 }
 
-void displayStack(shared_ptr<stack<string>> stackForDisplay)noexcept
+void displayStack(shared_ptr<stack<string>> stackForDisplay)noexcept//TODO:rename
 {
 	shared_ptr<stack<string>> copy;
-	int size;
+	size_t sizeAllTasks;
 
 	copy = copyStack(stackForDisplay);//copy stack
 	copy = reverseStack(copy);//and reverse him to display stack from first element
 
-	size = copy->size();
+	sizeAllTasks = copy->size();
 
-	for (int i = 0; i < size; i++)
+	for (size_t i = 0; i < sizeAllTasks; i++)
 	{
 		cout << i << " - " << copy->top() << endl;
 		copy->pop();

@@ -18,11 +18,11 @@ class Task
 {
 public:
 
-    ReturnCommand addTask(string) noexcept;
+    ReturnCommand insert(string) noexcept;
 
-    ReturnCommand removeTask(string) noexcept;
+    ReturnCommand remove(string) noexcept;
 
-    ReturnCommand removeTask(int) noexcept;
+    ReturnCommand remove(int) noexcept;
 
     ReturnCommand saveTasks(fstream*);
 
