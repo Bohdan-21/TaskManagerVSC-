@@ -16,7 +16,7 @@ using std::strstr;
 using std::unique_ptr;
 using std::shared_ptr;
 
-enum class ReturnCommand : short {//TODO:forgot fix this
+enum class ReturnCommand : short {//TODO:remove this dependencies
     ADDED = 0,
     REMOVE,
     ERRORS,//TODO:rename ERROR to ERRORS because library dirent use ERROR. fix this later
